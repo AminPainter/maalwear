@@ -24,7 +24,7 @@ const Navigation = ({ setShowCart }) => {
           <Icon name='Search' />
         </IconButton>
 
-        <IconButton onClick={setShowCart}>
+        <IconButton onClick={() => setShowCart(true)}>
           <Badge
             badgeContent={cart?.total_unique_items || 0}
             color='primary'

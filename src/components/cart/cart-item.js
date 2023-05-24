@@ -24,5 +24,5 @@ const ProductImage = styled('img')(({ theme }) => ({
   height: '8rem',
   width: '6rem',
   objectFit: 'cover',
-  borderRadius: '3px',
+  borderRadius: theme.borderRadius.tiny,
 }));

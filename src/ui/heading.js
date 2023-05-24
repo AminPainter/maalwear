@@ -10,6 +10,13 @@ const Heading = ({ variant = 'primary', children, ...rest }) => {
         </PrimaryTypography>
       );
 
+    case 'secondary':
+      return (
+        <BaseTypography variant='h4' {...rest}>
+          {children}
+        </BaseTypography>
+      );
+
     default:
       return (
         <BaseTypography variant='h6' {...rest}>

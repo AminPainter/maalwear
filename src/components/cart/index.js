@@ -26,9 +26,8 @@ const Cart = ({ showCart, setShowCart }) => {
 
           <CartItemList gap={3}>
             {cart?.line_items.map((item, idx) => (
-              <>
+              <div key={item.id}>
                 <CartItem
-                  key={item.id}
                   image={item.image.url}
                   alt={item.image.id}
                   name={item.name}
@@ -36,7 +35,7 @@ const Cart = ({ showCart, setShowCart }) => {
                   lineTotal={item.line_total.formatted_with_symbol}
                 />
                 {idx !== cart.line_items.length - 1 && <Divider />}
-              </>
+              </div>
             ))}
           </CartItemList>
         </Box>
@@ -50,7 +49,7 @@ const Cart = ({ showCart, setShowCart }) => {
               letterSpacing={2}>
               subtotal
             </Typography>
-            <Typography variant='body2'>{cart.subtotal.formatted_with_symbol}</Typography>
+            <Typography variant='body2'>{cart?.subtotal.formatted_with_symbol || 0}</Typography>
           </Stack>
 
           <Button variant='contained'>Proceed to checkout</Button>
