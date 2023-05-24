@@ -14,7 +14,7 @@ const ProductList = ({ products }) => (
         image={product.image.url}
         alt={product.image.id}
         sizeVariants={
-          product.variant_groups.find(group => group.name.toLowerCase() === 'size')?.options || []
+          product.variant_groups?.find(group => group.name.toLowerCase() === 'size')?.options || []
         }
       />
     ))}
