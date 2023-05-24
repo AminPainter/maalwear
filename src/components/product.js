@@ -22,10 +22,13 @@ const Product = ({ id, name, price, image, alt, sizeVariants }) => {
   };
 
   return (
-    <Card>
+    <ProductCard>
       <Link to={`/products/${id}`}>
-        <ProductImage image={image} title={alt} />
-        <CardContent>
+        <ProductImageWrapper>
+          <ProductImage component='img' image={image} title={alt} />
+        </ProductImageWrapper>
+
+        <CardContent sx={{ pb: '0 !important' }}>
           <Heading gutterBottom variant='h5'>
             {name}
           </Heading>
@@ -52,17 +55,34 @@ const Product = ({ id, name, price, image, alt, sizeVariants }) => {
           <Icon name='Share2' />
         </IconButton>
       </CardActions>
-    </Card>
+    </ProductCard>
   );
 };
 
 export default Product;
 
-const ProductImage = styled(CardMedia)(({ theme }) => ({
+const ProductCard = styled(Card)(({ theme }) => ({
+  transition: 'all .3s',
+
+  '&:hover': {
+    transform: 'translateY(-0.8rem)',
+    boxShadow: theme.shadows[15],
+  },
+
+  '&:hover img': {
+    transform: 'scale(1.2)',
+  },
+}));
+
+const ProductImageWrapper = styled('figure')({
   height: '20rem',
-  width: '100%',
-  objectFit: 'cover',
+  overflow: 'hidden',
+});
+
+const ProductImage = styled(CardMedia)(({ theme }) => ({
+  height: '100%',
   backgroundColor: theme.palette.primary.light,
+  transition: 'all .3s',
 }));
 
 const SizeButton = styled(Button)(({ theme }) => ({
