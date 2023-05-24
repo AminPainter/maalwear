@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { ProductList } from 'components/home-page';
+import { Catalog } from 'components/home-page';
 
 const IndexPage = () => (
   <>
-    <ProductList />
+    <Catalog />
   </>
 );
 
