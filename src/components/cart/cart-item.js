@@ -1,21 +1,34 @@
 import React from 'react';
 import { Stack, Typography, styled } from '@mui/material';
 
-const CartItem = ({ name, image, alt, size, lineTotal }) => (
-  <Stack direction='row' justifyContent='space-between' alignItems='center'>
-    <ProductImage src={image} alt={alt} />
+import { Counter } from 'ui';
+import { useCart } from 'hooks';
 
-    <Stack justifyContent='space-between'>
-      <Typography>{name}</Typography>
+const CartItem = ({ lineItemId, name, image, alt, size, lineTotal, quantity }) => {
+  const { updateCartItemQuantity } = useCart();
 
-      <Typography>
-        <b>Size: </b> {size}
-      </Typography>
+  return (
+    <Stack direction='row' justifyContent='space-between' alignItems='center'>
+      <ProductImage src={image} alt={alt} />
+
+      <Stack justifyContent='space-between'>
+        <Typography>{name}</Typography>
+
+        <Typography>
+          <b>Size: </b> {size}
+        </Typography>
+
+        <Counter
+          count={quantity}
+          minCount={1}
+          handleChange={newQuantity => updateCartItemQuantity(lineItemId, newQuantity)}
+        />
+      </Stack>
+
+      <Typography>{lineTotal}</Typography>
     </Stack>
-
-    <Typography>{lineTotal}</Typography>
-  </Stack>
-);
+  );
+};
 
 export default CartItem;
 

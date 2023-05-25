@@ -10,17 +10,21 @@ const useCart = () => {
 
   const addToCart = useCallback(
     async (productId, quantity) => {
-      await commerce.cart.add(productId, quantity);
-
-      queryClient.invalidateQueries({
-        queryKey: [queryKeys.getCart],
-        exact: true,
-      });
+      const { cart: updatedCart } = await commerce.cart.add(productId, quantity);
+      queryClient.setQueryData(queryKeys.getCart, updatedCart);
     },
     [queryClient]
   );
 
-  return { cart: data, isCartLoading: isLoading, addToCart };
+  const updateCartItemQuantity = useCallback(
+    async (lineItemId, quantity) => {
+      const { cart: updatedCart } = await commerce.cart.update(lineItemId, { quantity });
+      queryClient.setQueryData(queryKeys.getCart, updatedCart);
+    },
+    [queryClient]
+  );
+
+  return { cart: data, isCartLoading: isLoading, addToCart, updateCartItemQuantity };
 };
 
 export default useCart;

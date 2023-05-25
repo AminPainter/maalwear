@@ -5,9 +5,11 @@ import { AppBar, Badge, IconButton, Stack, styled } from '@mui/material';
 import { Icon } from 'ui';
 import { useCart } from 'hooks';
 import logoImg from 'images/logo.png';
+import useUITracker from 'store/uitracker';
 
-const Navigation = ({ setShowCart }) => {
+const Navigation = () => {
   const { cart } = useCart();
+  const { setShowCart } = useUITracker();
 
   return (
     <NavBar position='fixed'>

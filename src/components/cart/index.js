@@ -3,9 +3,11 @@ import { Box, Button, Divider, Drawer, IconButton, Stack, Typography, styled } f
 
 import { Heading, Icon } from 'ui';
 import { useCart } from 'hooks';
+import useUITracker from 'store/uitracker';
 import CartItem from './cart-item';
 
-const Cart = ({ showCart, setShowCart }) => {
+const Cart = () => {
+  const { showCart, setShowCart } = useUITracker();
   const { cart } = useCart();
 
   const handleCloseCart = () => setShowCart(false);
@@ -28,6 +30,7 @@ const Cart = ({ showCart, setShowCart }) => {
             {cart?.line_items.map((item, idx) => (
               <div key={item.id}>
                 <CartItem
+                  lineItemId={item.id}
                   image={item.image.url}
                   alt={item.image.id}
                   name={item.name}

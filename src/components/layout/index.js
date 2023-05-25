@@ -1,20 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { styled } from '@mui/material';
 
 import Navigation from './navigation';
 import Cart from 'components/cart';
 
-const Layout = ({ children }) => {
-  const [showCart, setShowCart] = useState(false);
-
-  return (
-    <>
-      <Navigation setShowCart={setShowCart} />
-      <Main>{children}</Main>
-      <Cart showCart={showCart} setShowCart={setShowCart} />
-    </>
-  );
-};
+const Layout = ({ children }) => (
+  <>
+    <Navigation />
+    <Main>{children}</Main>
+    <Cart />
+  </>
+);
 
 export default Layout;
 

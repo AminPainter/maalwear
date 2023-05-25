@@ -6,13 +6,16 @@ import { ThemeProvider } from '@mui/material';
 import { theme } from 'ui';
 import Layout from 'components/layout';
 import 'styles/global.css';
+import { UITrackerProvider } from 'store/uitracker';
 
 const queryClient = new QueryClient();
 
 const App = ({ children }) => (
   <QueryClientProvider client={queryClient}>
     <ThemeProvider theme={theme}>
-      <Layout>{children}</Layout>
+      <UITrackerProvider>
+        <Layout>{children}</Layout>
+      </UITrackerProvider>
     </ThemeProvider>
 
     <ReactQueryDevtools />
