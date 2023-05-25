@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'gatsby';
 import { Box, Button, Divider, Drawer, IconButton, Stack, Typography, styled } from '@mui/material';
 
 import { Heading, Icon } from 'ui';
@@ -55,7 +56,9 @@ const Cart = () => {
             <Typography variant='body2'>{cart?.subtotal.formatted_with_symbol || 0}</Typography>
           </Stack>
 
-          <Button variant='contained'>Proceed to checkout</Button>
+          <Button variant='contained' component={Link} to='/checkout' onClick={handleCloseCart}>
+            Proceed to checkout
+          </Button>
         </CartSummary>
       </CartScreen>
     </Drawer>
