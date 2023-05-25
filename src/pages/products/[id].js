@@ -1,13 +1,17 @@
 import React from 'react';
 
 import SiteSeo from 'components/seo';
-import { ProductDetails, RelatedProducts } from 'components/product-details-page';
 import { useProductDetails } from 'hooks';
+import {
+  ProductDetails,
+  RelatedProducts,
+  ProductDetailsLoader,
+} from 'components/product-details-page';
 
 const ProductDetailPage = ({ params }) => {
   const { product, isLoading } = useProductDetails(params.id);
 
-  if (isLoading) return <>Loading</>;
+  if (isLoading) return <ProductDetailsLoader />;
 
   if (!product) return <>Error</>;
 
