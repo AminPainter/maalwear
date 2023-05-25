@@ -11,7 +11,7 @@ const CartItem = ({ lineItemId, name, image, alt, size, lineTotal, quantity }) =
     <Stack direction='row' justifyContent='space-between' alignItems='center'>
       <ProductImage src={image} alt={alt} />
 
-      <Stack justifyContent='space-between'>
+      <Stack gap={0.5} flex={1} alignItems='center'>
         <Typography>{name}</Typography>
 
         <Typography>
