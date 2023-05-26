@@ -1,27 +1,37 @@
 import React, { useEffect, useState } from 'react';
+import { navigate } from 'gatsby';
 import { Box, Button, Container, Stack, Step, StepLabel, Stepper, styled } from '@mui/material';
 
 import commerce from 'config/commerce';
 import SiteSeo from 'components/seo';
 import { useCart } from 'hooks';
 import { Icon } from 'ui';
-import { AddressForm, CustomerForm } from 'components/checkout-page';
+import {
+  AddressForm,
+  CustomerForm,
+  PaymentForm,
+  OrderConfirmation,
+} from 'components/checkout-page';
 
-const steps = ['Customer Information', 'Shipping Address', 'Payment'];
+const steps = ['Customer Information', 'Shipping Address', 'Payment', 'Confirmation'];
 
 const CheckoutPage = () => {
   const { cart } = useCart();
   const [currentStep, setCurrentStep] = useState(0);
   const [checkoutDetails, setCheckoutDetails] = useState({});
 
-  // useEffect(() => {
-  //   (async () => {
-  //     if (!cart?.line_items.length) return;
+  useEffect(() => {
+    (async () => {
+      if (!cart?.line_items.length) {
+        navigate('/');
+        return;
+      }
 
-  //     const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
-  //     setToken(token);
-  //   })();
-  // }, [cart]);
+      const token = await commerce.checkout.generateToken(cart.id, { type: 'cart' });
+      setCheckoutDetails(prevDetails => ({ ...prevDetails, checkoutToken: token }));
+      console.log(token);
+    })();
+  }, [cart]);
 
   return (
     <Stack height='85vh' justifyContent='center'>
@@ -56,7 +66,24 @@ const CheckoutPage = () => {
                   />
                 );
               case 1:
-                return <AddressForm setCheckoutDetails={setCheckoutDetails} />;
+                return (
+                  <AddressForm
+                    checkoutDetails={checkoutDetails}
+                    setCheckoutDetails={setCheckoutDetails}
+                    setCurrentStep={setCurrentStep}
+                  />
+                );
+              case 2:
+                return (
+                  <PaymentForm
+                    checkoutDetails={checkoutDetails}
+                    setCheckoutDetails={setCheckoutDetails}
+                    setCurrentStep={setCurrentStep}
+                  />
+                );
+              case 3:
+                return <OrderConfirmation />;
+
               default:
                 return <></>;
             }

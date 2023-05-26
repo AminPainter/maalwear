@@ -6,9 +6,9 @@ import { Grid, Heading, Icon } from 'ui';
 
 const CustomerForm = ({ checkoutDetails, setCheckoutDetails, setCurrentStep }) => {
   const initialValues = {
-    firstName: checkoutDetails.firstName,
-    lastName: checkoutDetails.lastName,
-    email: checkoutDetails.email,
+    firstName: checkoutDetails.firstName || '',
+    lastName: checkoutDetails.lastName || '',
+    email: checkoutDetails.email || '',
   };
 
   const handleSubmit = values => {

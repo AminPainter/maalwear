@@ -3,15 +3,26 @@ import { Formik } from 'formik';
 import { Button, Stack, TextField } from '@mui/material';
 import { Grid, Heading, Icon } from 'ui';
 
-const AddressForm = () => {
+const AddressForm = ({ checkoutDetails, setCheckoutDetails, setCurrentStep }) => {
   const initialValues = {
-    shippingPostalZipCode: '',
-    shippingCity: '',
-    shippingStreet: '',
+    shippingPostalZipCode: checkoutDetails.shippingPostalZipCode || '',
+    shippingCity: checkoutDetails.shippingCity || '',
+    shippingStreet: checkoutDetails.shippingStreet || '',
+  };
+
+  const handleSubmit = values => {
+    setCheckoutDetails(prevDetails => ({
+      ...prevDetails,
+      shippingPostalZipCode: values.shippingPostalZipCode,
+      shippingCity: values.shippingCity,
+      shippingStreet: values.shippingStreet,
+    }));
+
+    setCurrentStep(prevStep => prevStep + 1);
   };
 
   return (
-    <Formik initialValues={initialValues}>
+    <Formik initialValues={initialValues} onSubmit={handleSubmit}>
       {formik => (
         <Stack gap={2} width='50%' component='form' onSubmit={formik.handleSubmit}>
           <Heading textAlign='center' variant='secondary'>
