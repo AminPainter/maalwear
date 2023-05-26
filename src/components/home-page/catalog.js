@@ -1,19 +1,29 @@
 import React from 'react';
+import { Skeleton, Stack } from '@mui/material';
 
 import ProductList from 'components/product-list';
-import { Section } from 'ui';
+import { Section, Grid } from 'ui';
 import { useProducts } from 'hooks';
+
+const CatalogLoader = () => (
+  <Grid>
+    {new Array(3).fill('$').map((_, idx) => (
+      <Stack key={idx} gap={2}>
+        <Skeleton variant='rectangular' height='20rem' />
+        <Skeleton variant='rectangular' width='70%' />
+        <Skeleton variant='rectangular' width='20%' />
+        <Skeleton variant='rectangular' />
+      </Stack>
+    ))}
+  </Grid>
+);
 
 const Catalog = () => {
   const { products, isLoading } = useProducts();
 
-  if (isLoading) return <>Loading</>;
-
-  if (!products) return <>Error</>;
-
   return (
     <Section heading='new arrivals'>
-      <ProductList products={products} />
+      {isLoading ? <CatalogLoader /> : <ProductList products={products} />}
     </Section>
   );
 };
